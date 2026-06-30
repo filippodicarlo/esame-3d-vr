@@ -4,16 +4,60 @@
     <meta charset="utf-8">
     <title>Render 360 - Progetto Esame</title>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <style>
+      /* Stile per il pulsante a schermo */
+      .button-cambia {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        padding: 12px 24px;
+        background-color: #ffffff;
+        color: #333333;
+        border: 2px solid #333333;
+        border-radius: 8px;
+        font-family: sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+      }
+      .button-cambia:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
   </head>
   <body>
+
+    <button class="button-cambia" onclick="cambiaStanza()">Cambia Camera</button>
+
     <a-scene>
       <a-assets>
-        <img id="mio-render" src="Img-360.webp">
+        <img id="render-1" src="img-salotto-360.webp">
+        <img id="render-2" src="Img-camera-letto-360.webp">
       </a-assets>
 
-      <a-sky src="#mio-render" rotation="0 -90 0"></a-sky>
+      <a-sky id="sfondo" src="#render-1" rotation="0 -90 0"></a-sky>
 
       <a-entity camera look-controls position="0 1.6 0"></a-entity>
     </a-scene>
+
+      
+    <script>
+      let stanzaAttuale = 1;
+      const cielo = document.querySelector('#sfondo');
+
+      function cambiaStanza() {
+        if (stanzaAttuale === 1) {
+          cielo.setAttribute('src', '#render-2');
+          stanzaAttuale = 2;
+        } else {
+          cielo.setAttribute('src', '#render-1');
+          stanzaAttuale = 1;
+        }
+      }
+    </script>
+
   </body>
 </html>
